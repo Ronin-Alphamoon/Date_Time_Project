@@ -12,7 +12,7 @@ public class DateAndTimeProject {
     public static void main(String[] args) {
         // TODO code application logic here
 
-        System.out.println( formatDate( new Date()) + getDate());
+        System.out.println( formatDate( getDate()) );
         
     }
     
@@ -33,7 +33,7 @@ public class DateAndTimeProject {
     }   
     public static String formatDate( Date myDate){
         String formatedDateString;
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE yyy/dd/mm");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE YYYY/MM/dd");
         formatedDateString = dateFormatter.format(myDate);     
         return "Your full date is " + formatedDateString;
     }
