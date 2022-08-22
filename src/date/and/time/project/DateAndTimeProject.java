@@ -1,22 +1,37 @@
 package date.and.time.project;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Scanner;
 
 public class DateAndTimeProject {
-
+    
+    static Scanner consoleScanner = new Scanner(System.in);
+    
     public static void main(String[] args) {
         // TODO code application logic here
         
-        int month = 12,
-            year = 2021,
-            day = 23;
-       // Date userDate = new Date(year,month,day);
-        Calendar userDate = Calendar.getInstance();
-       
-        userDate.set(year, month, day);
-        
-        System.out.println(userDate);
-        
+        System.out.println(getDate());
+
     }
     
-}
+    public static Date getDate(){
+ 
+        int userMonth ,userYear , userDay ;
+       
+        System.out.print("Enter year as Number: ");
+        userYear = consoleScanner.nextInt();
+        System.out.print("Enter month as Number: ");
+        userMonth = consoleScanner.nextInt() - 1;
+        System.out.print("Enter day as Number: ");
+        userDay = consoleScanner.nextInt();
+       
+        Calendar myCalender = new GregorianCalendar(userYear,userMonth,userDay);
+
+        return myCalender.getTime();
+    }
+    
+   }
+    
+
