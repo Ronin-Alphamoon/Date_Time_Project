@@ -1,5 +1,5 @@
 package date.and.time.project;
-
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -11,9 +11,9 @@ public class DateAndTimeProject {
     
     public static void main(String[] args) {
         // TODO code application logic here
-        
-        System.out.println(getDate());
 
+        System.out.println( formatDate( new Date()) + getDate());
+        
     }
     
     public static Date getDate(){
@@ -26,12 +26,15 @@ public class DateAndTimeProject {
         userMonth = consoleScanner.nextInt() - 1;
         System.out.print("Enter day as Number: ");
         userDay = consoleScanner.nextInt();
-       
+        
         Calendar myCalender = new GregorianCalendar(userYear,userMonth,userDay);
-
+        
         return myCalender.getTime();
+    }   
+    public static String formatDate( Date myDate){
+        String formatedDateString;
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE yyy/dd/mm");
+        formatedDateString = dateFormatter.format(myDate);     
+        return "Your full date is " + formatedDateString;
     }
-    
-   }
-    
-
+}
