@@ -1,4 +1,5 @@
 package date.and.time.project;
+
 /**
  * @author Ronin
  */
@@ -34,7 +35,7 @@ private final static String[][] weekdays = {  {"6","Monday"},
     public String toString() {
         String defualt =  REF_YEAR + " " + REF_MONTH + " " + REF_DAY + " " + REF_WEEKDAY;
         String user = getYearState() + ", " + getMonthState() + ", " + getDayState() + ", "+ getWeekday();
-        return "Datee{" + defualt + " \n" + user +  "}";
+        return "Datee{"  + user +  "}";
     }
 
     public static int getYearState() {
@@ -70,4 +71,10 @@ private final static String[][] weekdays = {  {"6","Monday"},
     }
     
     
+    public static String printFormatedDate( String myDate){
+        String formatedDateString;
+        //SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE YYYY/MM/dd");
+        formatedDateString =" u\002F ";    
+        return "Your full date is " + formatedDateString;
+    }
 }
