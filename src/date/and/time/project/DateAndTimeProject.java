@@ -11,8 +11,10 @@ public class DateAndTimeProject {
     
     public static void main(String[] args) {
         // TODO code application logic here
-
-        System.out.println( formatDate( getDate()) );
+       // System.out.println( formatDate( getDate()) );
+       
+       Datee myDate = new Datee(2003,12,20);
+       myDate.toString();
         
     }
     
