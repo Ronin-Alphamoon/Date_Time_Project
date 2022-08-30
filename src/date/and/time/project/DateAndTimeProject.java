@@ -10,11 +10,9 @@ public class DateAndTimeProject {
     static Scanner consoleScanner = new Scanner(System.in);
     
     public static void main(String[] args) {
-        // TODO code application logic here
-       // System.out.println( formatDate( getDate()) );
-       
+        // TODO code application logic here       
        Datee myDate = new Datee(2003,12,20);
-       myDate.toString();
+        System.out.println(myDate.toString() );
         
     }
     
