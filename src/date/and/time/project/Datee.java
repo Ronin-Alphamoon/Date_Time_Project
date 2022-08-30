@@ -5,30 +5,35 @@ package date.and.time.project;
  */
 public class Datee {
     
-private final static String[][] weekdays = {  {"6","Monday"},
-                                        {"5","Tuesday"},
-                                        {"4","Wenesday"},
-                                        {"3","Thurday"},
-                                        {"2","Friday"},
-                                        {"1","Staturady"},
-                                        {"0","Sunday"} };
+private final static String[][] weekdays = {
+                                        {"0","Staturday"},
+                                        {"6","Sunday"}, 
+                                        {"5","Monday"},  
+                                        {"4","Tuesday"},
+                                        {"3","Wednesday"},
+                                        {"2","Thursday"},
+                                        {"1","Friday"}};
 
     private final static int REF_YEAR = 2000;
     private final static int REF_MONTH = 1;
     private final static int REF_DAY = 1;
-    private final static String REF_WEEKDAY = "Sunday";
+    private final static String REF_WEEKDAY = "Saturday";
     
     private static int yearState;
     private static int monthState;
     private static int dayState;
-    private static String weekday;
+    private static String weekday = "Saturday";
 
+    private static int yearDifferance;
+    private static int monthDiffereance;
+    private static int dayDiffereance;
+
+    
     public Datee(int inputYear,int inputMonth,int inputDay) { 
        setYearState(inputYear);
        setMonthState(inputMonth);
        setDayState(inputDay);
 
-    
     }
 
     @Override
@@ -51,7 +56,12 @@ private final static String[][] weekdays = {  {"6","Monday"},
     }
 
     public static void setMonthState(int aMonthState) {
-        monthState = aMonthState;
+        
+        if (aMonthState <= 12 && aMonthState >= 1){
+            monthState = aMonthState;
+        }else{
+            System.out.println("Incorrect month");
+        }
     }
 
     public static int getDayState() {
@@ -59,7 +69,12 @@ private final static String[][] weekdays = {  {"6","Monday"},
     }
 
     public static void setDayState(int aDayState) {
-        dayState = aDayState;
+        
+        if (aDayState <= 31 && aDayState >= 1){
+            dayState = aDayState;
+        }else{
+            System.out.println("Incorrect day");
+        }
     }
 
     public static String getWeekday() {
@@ -70,6 +85,32 @@ private final static String[][] weekdays = {  {"6","Monday"},
         weekday = aWeekday;
     }
     
+    public String findWeekday(){
+        int yearCounter,monthCounter,dayCounter,positionOfDay;
+        findDifferance();
+        
+        if( yearDifferance >= 0) {
+            positionOfDay = yearDifferance % 7;
+            weekday = weekdays[ positionOfDay ][ 1 ];
+            System.out.println( positionOfDay  + " <-- " + (weekdays[ positionOfDay ][1]) );
+
+        }else{
+            positionOfDay = -yearDifferance % 7;
+            weekday = weekdays[ positionOfDay ][ 1 ];
+            System.out.println( positionOfDay  + " <-- " + (weekdays[ positionOfDay ][1]) );
+        }
+        
+        System.out.println( positionOfDay  + " <-- " + (weekdays[ positionOfDay ][1]));
+        return weekday;
+    }
+    
+    public static void findDifferance(){
+    
+        yearDifferance = getYearState() - REF_YEAR; 
+        monthDiffereance = getMonthState() - REF_MONTH;
+        dayDiffereance = getDayState() - REF_DAY;
+ 
+    }
     
     public static String printFormatedDate( String myDate){
         String formatedDateString;
