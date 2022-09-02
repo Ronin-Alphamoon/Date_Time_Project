@@ -6,13 +6,13 @@ package date.and.time.project;
 public class Datee {
     
 private final static String[][] weekdays = {
-                                        {"0","Staturday"},
-                                        {"6","Sunday"}, 
-                                        {"5","Monday"},  
-                                        {"4","Tuesday"},
-                                        {"3","Wednesday"},
-                                        {"2","Thursday"},
-                                        {"1","Friday"}};
+                                        {"Friday","Staturday"},
+                                        {"Thursday","Sunday"}, 
+                                        {"Wednesday","Monday"},  
+                                        {"Tuesday","Tuesday"},
+                                        {"Monday","Wednesday"},
+                                        {"Sunday","Thursday"},
+                                        {"Staturday","Friday"}};
 
     private final static int REF_YEAR = 2000;
     private final static int REF_MONTH = 1;
@@ -86,21 +86,23 @@ private final static String[][] weekdays = {
     }
     
     public String findWeekday(){
-        int yearCounter,monthCounter,dayCounter,positionOfDay;
+        int leapYearCounter,positionOfDay;
         findDifferance();
+        leapYearCounter = ( yearDifferance >= 0) ? ( yearDifferance / 4) : ( yearDifferance / 4 );
+        leapYearCounter = (yearDifferance == 0 ) ? leapYearCounter  : (yearDifferance > 0) ? ++leapYearCounter : leapYearCounter;
         
         if( yearDifferance >= 0) {
-            positionOfDay = yearDifferance % 7;
+            positionOfDay = (leapYearCounter + yearDifferance )%7;
             weekday = weekdays[ positionOfDay ][ 1 ];
             System.out.println( positionOfDay  + " <-- " + (weekdays[ positionOfDay ][1]) );
 
         }else{
-            positionOfDay = -yearDifferance % 7;
+            leapYearCounter = (yearDifferance >= -7 ) ? leapYearCounter  : leapYearCounter;
+            positionOfDay = Math.abs(++yearDifferance + leapYearCounter) % 7;
             weekday = weekdays[ positionOfDay ][ 1 ];
-            System.out.println( positionOfDay  + " <-- " + (weekdays[ positionOfDay ][1]) );
+            System.out.println( positionOfDay  + " <-- " + (weekdays[ positionOfDay ][0]) );
         }
         
-        System.out.println( positionOfDay  + " <-- " + (weekdays[ positionOfDay ][1]));
         return weekday;
     }
     

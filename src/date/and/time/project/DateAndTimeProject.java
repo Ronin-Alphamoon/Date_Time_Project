@@ -4,21 +4,26 @@ public class DateAndTimeProject {
         
     public static void main(String[] args) {
         // TODO code application logic here       
-       Datee myDate = new Datee(2011,01,01);
+       Datee myDate = new Datee(1905,01,01);
        //System.out.println(myDate.toString() );
        myDate.findWeekday();
       String[] weekdays = {"Sat","Sun","Mon","Tue","Wed","Thur","Fri"};
       String[] weekday2s = {"Fri","Thru","Wed","Tue","Mon","Sun","Sat"};
-      int x = -7;
+      int x = -95;
+      int leapYearCounter = (x >= 0) ? (x / 4) : ( x / 4 ) ;  
+     
+     // leapYearCounter = (x == 0 ) ? leapYearCounter  : ++leapYearCounter;
 
-        System.out.println();
-        if(x >= 0 ) {
-         System.out.print( " (" +(x % 7) + ")" + weekdays[(x % 7)] ); 
-         System.out.print( "|" + weekday2s[(x % 7)] ); 
-        }else{
-            System.out.print( " (" +( (-(x) % 7) )+ ")" + weekdays[( (-x % 7) )] ); 
-            System.out.print( "|" + weekday2s[( ( -(++x) % 7) )] ); 
+
+        if (x >= 0) {
+            leapYearCounter = (x == 0 ) ? leapYearCounter  : ++leapYearCounter;
+            System.out.print( "(" +((leapYearCounter + x )%7) + ")" +  weekdays[(leapYearCounter + x )%7] ); 
+        } else {
+            leapYearCounter = (x >= -7 ) ? leapYearCounter  : leapYearCounter;
+            System.out.print( "(" +(Math.abs(x +1+ leapYearCounter) % 7) + ")" + weekday2s[ Math.abs(++x + leapYearCounter) % 7 ] );
         }
+         
+
     }
   
 
