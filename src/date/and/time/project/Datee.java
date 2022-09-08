@@ -36,7 +36,7 @@ private final static String[][] weekdays = {
 
     }
 
-    @Override
+
     public String toString() {
         String defualt =  REF_YEAR + " " + REF_MONTH + " " + REF_DAY + " " + REF_WEEKDAY;
         String user = getYearState() + ", " + getMonthState() + ", " + getDayState() + ", "+ getWeekday();
@@ -81,9 +81,6 @@ private final static String[][] weekdays = {
         return weekday;
     }
 
-    public static void setWeekday(String aWeekday) {
-        weekday = aWeekday;
-    }
     
     public String findWeekday(){
         int leapYearCounter,positionOfDay;
@@ -106,7 +103,7 @@ private final static String[][] weekdays = {
         return weekday;
     }
     
-    public static void findDifferance(){
+    private static void findDifferance(){
     
         yearDifferance = getYearState() - REF_YEAR; 
         monthDiffereance = getMonthState() - REF_MONTH;
@@ -114,10 +111,65 @@ private final static String[][] weekdays = {
  
     }
     
-    public static String printFormatedDate( String myDate){
+    public String newDayFinder() {
+    	
+    	
+    	String[] weekChart = {"Sun","Mon","Tue","Wed","Thur","Fri","Sat"};
+    	int[][] centauryChart = {
+    			{14,2},
+    			{15,0},
+    			{16,6},
+    			{17,4},
+    			{18,2},
+    			{19,0},
+    			{20,6},
+    			{21,4},
+    			{22,2},
+    			{23,0},
+    			{24,6},
+    			{25,4}};
+    	int[] monthChart = {0,3,3,6,1,4,6,2,5,0,3,5};
+    	
+    	int centauryCode = 0,centauryValue,decadeValue,monthCode,weekday;
+    	
+    	monthCode = monthChart[ getMonthState() - 1 ];
+    	decadeValue = Integer.parseInt(String.valueOf( getYearState() ).substring(2, 4));
+    	centauryValue = Integer.parseInt(String.valueOf( getYearState() ).substring(0, 2));
+    	
+    	for (int centIndex = 0; centIndex < centauryChart.length; centIndex++) {
+    		
+    		if( centauryChart[centIndex][0] == centauryValue) {
+    			centauryCode = centauryChart[centIndex][1];
+    			break;
+    		}else {
+    			centauryCode = 0;
+    		}
+			
+		}
+    	weekday = getDayState() + monthCode + centauryCode + decadeValue + Math.floorDiv(decadeValue, 4);
+    	weekday =  weekday % 7;
+    	
+        if( ( getYearState() % 400 == 0 ) || (getYearState() % 4 == 0 && getYearState() % 100 != 0 ) ){
+            weekday = getDayState() + monthCode + centauryCode + decadeValue + Math.floorDiv(decadeValue, 4);
+    	    weekday =  weekday % 7;
+            weekday -= 1;
+
+            if(weekday < 0 ){
+                weekday += 7;
+            }
+
+        }else{
+            weekday = getDayState() + monthCode + centauryCode + decadeValue + Math.floorDiv(decadeValue, 4);
+    	    weekday =  weekday % 7;
+        }
+    	
+    	return ( (weekChart[weekday]) );
+    }
+    
+    public static String printFormatedDate( Datee myDate){
         String formatedDateString;
-        //SimpleDateFormat dateFormatter = new SimpleDateFormat("EEEE YYYY/MM/dd");
-        formatedDateString =" u\002F ";    
+        
+        formatedDateString = getYearState() + "/" + getMonthState() +  "/"+ getDayState() + " -" + myDate.newDayFinder() ;    
         return "Your full date is " + formatedDateString;
     }
 }
