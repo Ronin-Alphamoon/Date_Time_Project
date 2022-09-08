@@ -4,10 +4,12 @@ public class DateAndTimeProject {
         
     public static void main(String[] args) {
         // TODO code application logic here       
-       Datee myDate = new Datee(2002,7,11);
+       Datee myDate1 = new Datee(1400,01,01);
 
-     // System.out.println(myDate.toString() );
-      System.out.println(myDate.printFormatedDate(myDate) );
+      System.out.println(myDate1.toString() );
+      System.out.println(Datee.printFormatedDate(myDate1));
+      System.out.println(Datee.isLeapYear(2000));
+      
 
     }
   

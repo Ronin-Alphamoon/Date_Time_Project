@@ -4,137 +4,83 @@ package date.and.time.project;
  * @author Ronin
  */
 public class Datee {
-    
-private final static String[][] weekdays = {
-                                        {"Friday","Staturday"},
-                                        {"Thursday","Sunday"}, 
-                                        {"Wednesday","Monday"},  
-                                        {"Tuesday","Tuesday"},
-                                        {"Monday","Wednesday"},
-                                        {"Sunday","Thursday"},
-                                        {"Staturday","Friday"}};
-
-    private final static int REF_YEAR = 2000;
-    private final static int REF_MONTH = 1;
-    private final static int REF_DAY = 1;
-    private final static String REF_WEEKDAY = "Saturday";
-    
-    private static int yearState;
-    private static int monthState;
-    private static int dayState;
-    private static String weekday = "Saturday";
-
-    private static int yearDifferance;
-    private static int monthDiffereance;
-    private static int dayDiffereance;
-
+	
+	private String[] weekChart = {"Sun","Mon","Tue","Wed","Thur","Fri","Sat"};
+	private int[][] centauryChart = {
+			{14,2},
+			{15,0},
+			{16,6},
+			{17,4},
+			{18,2},
+			{19,0},
+			{20,6},
+			{21,4},
+			{22,2},
+			{23,0},
+			{24,6},
+			{25,4}};
+	private int[] monthChart = {0,3,3,6,1,4,6,2,5,0,3,5};
+	
+	private int centauryCode = 0,centauryValue,decadeValue,monthCode,weekdayPosition;
+    private int year;
+    private int month;
+    private int day;
     
     public Datee(int inputYear,int inputMonth,int inputDay) { 
-       setYearState(inputYear);
-       setMonthState(inputMonth);
-       setDayState(inputDay);
+       setYear(inputYear);
+       setMonth(inputMonth);
+       setDay(inputDay);
 
     }
 
 
     public String toString() {
-        String defualt =  REF_YEAR + " " + REF_MONTH + " " + REF_DAY + " " + REF_WEEKDAY;
-        String user = getYearState() + ", " + getMonthState() + ", " + getDayState() + ", "+ getWeekday();
-        return "Datee{"  + user +  "}";
+        return "Datee{"  + getYear() + "," + getMonth() + "," + getDay() + ","+ getWeekday() +  "}";
     }
 
-    public static int getYearState() {
-        return yearState;
+    public int getYear() {
+        return year;
     }
 
-    public static void setYearState(int aYearState) {
-        yearState = aYearState;
+    public void setYear(int aYearState) {
+        year = aYearState;
     }
 
-    public static int getMonthState() {
-        return monthState;
+    public int getMonth() {
+        return month;
     }
 
-    public static void setMonthState(int aMonthState) {
+    public void setMonth(int aMonthState) {
         
         if (aMonthState <= 12 && aMonthState >= 1){
-            monthState = aMonthState;
+            month = aMonthState;
         }else{
             System.out.println("Incorrect month");
         }
     }
 
-    public static int getDayState() {
-        return dayState;
+    public int getDay() {
+        return day;
     }
 
-    public static void setDayState(int aDayState) {
+    public void setDay(int aDayState) {
         
         if (aDayState <= 31 && aDayState >= 1){
-            dayState = aDayState;
+            day = aDayState;
         }else{
             System.out.println("Incorrect day");
         }
     }
 
-    public static String getWeekday() {
-        return weekday;
-    }
-
-    
-    public String findWeekday(){
-        int leapYearCounter,positionOfDay;
-        findDifferance();
-        leapYearCounter = ( yearDifferance >= 0) ? ( yearDifferance / 4) : ( yearDifferance / 4 );
-        leapYearCounter = (yearDifferance == 0 ) ? leapYearCounter  : (yearDifferance > 0) ? ++leapYearCounter : leapYearCounter;
-        
-        if( yearDifferance >= 0) {
-            positionOfDay = (leapYearCounter + yearDifferance )%7;
-            weekday = weekdays[ positionOfDay ][ 1 ];
-            System.out.println( positionOfDay  + " <-- " + (weekdays[ positionOfDay ][1]) );
-
-        }else{
-            leapYearCounter = (yearDifferance >= -7 ) ? leapYearCounter  : leapYearCounter;
-            positionOfDay = Math.abs(++yearDifferance + leapYearCounter) % 7;
-            weekday = weekdays[ positionOfDay ][ 1 ];
-            System.out.println( positionOfDay  + " <-- " + (weekdays[ positionOfDay ][0]) );
-        }
-        
-        return weekday;
+    public String getWeekday() {
+        return findWeekday();
     }
     
-    private static void findDifferance(){
-    
-        yearDifferance = getYearState() - REF_YEAR; 
-        monthDiffereance = getMonthState() - REF_MONTH;
-        dayDiffereance = getDayState() - REF_DAY;
- 
-    }
-    
-    public String newDayFinder() {
+    private String findWeekday() {
     	
-    	
-    	String[] weekChart = {"Sun","Mon","Tue","Wed","Thur","Fri","Sat"};
-    	int[][] centauryChart = {
-    			{14,2},
-    			{15,0},
-    			{16,6},
-    			{17,4},
-    			{18,2},
-    			{19,0},
-    			{20,6},
-    			{21,4},
-    			{22,2},
-    			{23,0},
-    			{24,6},
-    			{25,4}};
-    	int[] monthChart = {0,3,3,6,1,4,6,2,5,0,3,5};
-    	
-    	int centauryCode = 0,centauryValue,decadeValue,monthCode,weekday;
-    	
-    	monthCode = monthChart[ getMonthState() - 1 ];
-    	decadeValue = Integer.parseInt(String.valueOf( getYearState() ).substring(2, 4));
-    	centauryValue = Integer.parseInt(String.valueOf( getYearState() ).substring(0, 2));
+    	monthCode = monthChart[ getMonth() - 1 ];
+    	decadeValue = Integer.parseInt(String.valueOf( getYear() ).substring(2, 4));
+    	centauryValue = Integer.parseInt(String.valueOf( getYear() ).substring(0, 2));
     	
     	for (int centIndex = 0; centIndex < centauryChart.length; centIndex++) {
     		
@@ -146,30 +92,32 @@ private final static String[][] weekdays = {
     		}
 			
 		}
-    	weekday = getDayState() + monthCode + centauryCode + decadeValue + Math.floorDiv(decadeValue, 4);
-    	weekday =  weekday % 7;
     	
-        if( ( getYearState() % 400 == 0 ) || (getYearState() % 4 == 0 && getYearState() % 100 != 0 ) ){
-            weekday = getDayState() + monthCode + centauryCode + decadeValue + Math.floorDiv(decadeValue, 4);
-    	    weekday =  weekday % 7;
-            weekday -= 1;
-
-            if(weekday < 0 ){
-                weekday += 7;
-            }
-
-        }else{
-            weekday = getDayState() + monthCode + centauryCode + decadeValue + Math.floorDiv(decadeValue, 4);
-    	    weekday =  weekday % 7;
+    	weekdayPosition = getDay() + monthCode + centauryCode + decadeValue + Math.floorDiv(decadeValue, 4);
+    	weekdayPosition =  weekdayPosition % 7;
+    	
+        if( isLeapYear( getYear() ) ){
+            weekdayPosition -= 1;
+            weekdayPosition =  weekdayPosition < 0? weekdayPosition + 7 : weekdayPosition;
         }
     	
-    	return ( (weekChart[weekday]) );
+    	return ( (weekChart[weekdayPosition]) );
     }
     
-    public static String printFormatedDate( Datee myDate){
-        String formatedDateString;
+    public static boolean isLeapYear(int year) {
+    	
+    	 if( ( year % 400 == 0 ) || ( year % 4 == 0 && year % 100 != 0 ) ){
+    		 return true;
+    	 }else {
+    		 return false;
+    	 }
+
+    }
+    public static String printFormatedDate( Datee datee){
+        String formatedDateString = "";
         
-        formatedDateString = getYearState() + "/" + getMonthState() +  "/"+ getDayState() + " -" + myDate.newDayFinder() ;    
+        formatedDateString = datee.getYear() + "/" + datee.getMonth() + "/" 
+        					+ datee.getDay() + " " + datee.getWeekday(); 
         return "Your full date is " + formatedDateString;
     }
 }
